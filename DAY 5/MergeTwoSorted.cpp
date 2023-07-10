@@ -11,64 +11,17 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode *ddummy  = NULL, *dummy = NULL, *l1 = list1, *l2 = list2;
-        while(l1!=NULL && l2!=NULL){
-            ListNode *temp = new ListNode();
-            if(l1->val < l2->val){
-                temp->val = l1->val;
-                temp->next = NULL;
-                l1 = l1->next;
-            }
-            else{
-                temp->val = l2->val;
-                temp->next = NULL;
-                l2 = l2->next;
-            }
-            
-            if(ddummy == NULL){
-                ddummy = temp;
-                dummy = ddummy;
-            }
-                
-            else{
-                ddummy->next = temp;
-                ddummy = ddummy->next;
-            }
+        if(list1 == NULL)
+            return list2;
+        if(list2 == NULL)
+            return list1;
+        if(list1->val < list2->val){
+            list1->next = mergeTwoLists(list1->next, list2);
+            return list1;
         }
-        if(l1 == NULL){
-            while(l2!=NULL){
-                ListNode *temp = new ListNode();
-                temp->val = l2->val;
-                temp->next = NULL;
-                l2 = l2->next;
-                if(ddummy == NULL){
-                    ddummy = temp;
-                    dummy = ddummy;
-                }
-                else{
-                    ddummy->next = temp;
-                    ddummy = ddummy->next;
-                }
-            }
+        else{
+            list2->next = mergeTwoLists(list1, list2->next);
+            return list2;
         }
-        if(l2 == NULL){
-            while(l1!=NULL){
-                ListNode *temp = new ListNode();
-                temp->val = l1->val;
-                temp->next = NULL;
-                l1 = l1->next;
-                if(ddummy == NULL){
-                    ddummy = temp;
-                    dummy = ddummy;
-                }
-                else{
-                    ddummy->next = temp;
-                    ddummy = ddummy->next;
-                }
-            }
-        }
-    
-        return dummy;
-
     }
 };
