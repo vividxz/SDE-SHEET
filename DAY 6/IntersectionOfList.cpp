@@ -1,16 +1,32 @@
 class Solution {
 public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-     ListNode *dummy;
-        while(headA){
-            dummy = headB;
-            while(dummy){
-            if(dummy == headA)
-                return headA;
-            dummy = dummy->next;
-            }
-            headA = headA->next;
+    int length(ListNode *head){
+        int l = 0;
+        while(head){
+            l++;
+            head = head->next;
         }
-    return NULL;
+        return l;
+    }
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int l1 = length(headA);
+        int l2 = length(headB);
+        int diff = abs(l1-l2);
+        if(l1 > l2){
+            while(diff--)
+                headA = headA->next;
+        }else{
+            while(diff--)
+                headB = headB->next;
+        }
+        while(headA != headB){
+            if(headA == NULL)
+                return NULL;
+            if(headB == NULL)
+                return NULL;
+            headA = headA->next;
+            headB = headB->next;
+        }
+        return headA;
     }   
 };
