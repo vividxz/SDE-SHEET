@@ -1,19 +1,16 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        map<ListNode*, int> freq;
+     ListNode *dummy;
         while(headA){
-            freq[headA]++;
+            dummy = headB;
+            while(dummy){
+            if(dummy == headA)
+                return headA;
+            dummy = dummy->next;
+            }
             headA = headA->next;
         }
-        while(headB){
-            freq[headB]++;
-            headB = headB->next;
-        }
-        for(auto it : freq){
-            if(it.second > 1)
-                return it.first;
-        }
-        return NULL;
-    }
+    return NULL;
+    }   
 };
